@@ -1,0 +1,92 @@
+Q1. What is Spring Batch ?                              3:40 minutes
+Spring Batch is one of the core module of spring framework,using this spring batch we can create robust batch(group of items) processing system. 
+Bacth Processing : batch processing is a technique which process data in a large group , instead of a single element of data, where you can process a high volume of data with minimul human interaction.
+
+When to use ?
+- Large Data Processing:
+Jab aapko lakhs–crores records process karne ho:
+                          - 10 lakh users ka data update karna
+                          - Big CSV/Excel files read & write karna
+- Scheduled / Daily Jobs
+Jab koi kaam daily/weekly/monthly auto-run karna ho:
+                          - Daily sales report generate karna
+                          - Daily email notifications bhejna
+                          - Monthly salary processing
+- ETL (Extract → Transform → Load)
+ Jab data ko:
+           - read karna ho (CSV, DB, XML, JSON)
+           - transform karna ho (calculation, validation)
+           - write karna ho (DB, file, API)
+
+Q2. What is Task Executor Framework?
+Aap computer me jab songs play, downloads, aur YouTube ek saath chalate ho → ye sab parallel threads me run hote hain.
+Spring me ye parallel kaam karne ke liye Task Executor Framework hota hai.
+Defination:
+The Task Executor Framework is a feature in Spring that helps us run
+👉 many tasks in the background,
+👉 asynchronously (without waiting),
+👉 using multiple threads.
+⭐ Simple Meaning:
+Task Executor = A helper in Spring that runs work on a separate thread.
+Because of this:
+✔ your main program does not stop or wait
+✔ tasks run faster and in parallel
+
+Note : we will use Task Executor framework for this.
+
+Q3. Spring Batch Core component and thier follow of executions?
+Spring Batch Core component:
+----------------------------
+(1). JobLuncher:- it is an interface which is used to lunch a job/Starts the Job, Sends Job Parameters, Handles status (Started, Completed, Failed), Allows scheduling of jobs. it has run method which trigger the job. 
+                 once job luncher call the run method,immediately it will create another component which is job. then after job immediately it will also called another component job repository
+(2). Job :- A Job is the main container in Spring Batch that defines the complete batch process. in simple It contains all the steps you want to run. job component also talk to step component
+            What does a Job contain? 
+                          - Steps (mandatory)
+                          - Job parameters
+                          - Job flow (which step runs first, second, etc.)
+                          - Error/Retry handling
+                          - Completion status
+        (2.1) Step:- A Step is a single unit of work inside a Job. Every Job is made up of multiple Steps. like, ItemReader, ItemProcessor, and ItemWriter are parts/components inside a Step  
+                     Examples of a Step:
+                                  - Read data
+                                  - Process data
+                                  - Write data
+                                  - Validate data
+                                  - Clean up files
+                                  - Send report
+                      ItemReader : ItemReader is the component that reads data from a source (file, DB, CSV, API).
+                                Example:
+                                    - Read rows from a CSV file
+                                    - Read records from a database
+                                    - Read lines from a text file
+                                    - Read JSON from an API
+                    ItemProcessor : ItemProcessor is the component that processes, transforms, or validates data.It changes the data before saving.It can also skip bad data.
+                                Example:
+                                    - Convert name to uppercase
+                                    - Validate mobile number
+                                    - Apply calculation (salary, discount)
+                                    - Filter out invalid records
+                    ItemWriter : ItemWriter is the component that writes the processed data to a destination (DB, file, API).
+                             Example :
+                                    - Save records into database
+                                    - Write data to CSV
+                                    - Write JSON to a file
+                                    - Send processed items to another API
+(3). JobRepository:- JobRepository is the place where Spring Batch stores all information about jobs./ JobRepository = Spring Batch ka database jaha job ka record store hota hai.
+                     It saves all the details of your batch jobs, like:
+                          - When the job started
+                          - When it ended
+                          - Job status (Completed, Failed, Running)
+                          - How many records were processed
+                          - Which step ran successfully
+                          - Job parameters
+                          - Errors (if any)
+
+follow of executions :
+----------------------    
+                          / ItemReader
+JOB LUNCHER → JOB → STEP → ItemProcessor 
+  ↓                      \ ItemWriter 
+JOB REPOSITORY            
+           
+           
