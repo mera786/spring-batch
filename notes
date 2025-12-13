@@ -84,9 +84,12 @@ Spring Batch Core component:
 
 follow of executions :
 ----------------------    
-                          / ItemReader
-JOB LUNCHER → JOB → STEP → ItemProcessor 
-  ↓                      \ ItemWriter 
-JOB REPOSITORY            
-           
-           
+                          / ItemReader (soruce is - csv file)
+JOB LUNCHER → JOB → STEP1 → ItemProcessor 
+  ↓              \        \ ItemWriter (destination will - db)
+JOB REPOSITORY     \       
+                     \
+                       \
+                         \ / ItemReader (soruce is - csv file)
+                           STEP2 → ItemProcessor 
+                           \ ItemWriter (destination will - db)
