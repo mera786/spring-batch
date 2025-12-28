@@ -1,4 +1,4 @@
-Q1. What is Spring Batch ?                              3:40 minutes
+Q1. What is Spring Batch ?                              
 Spring Batch is one of the core module of spring framework,using this spring batch we can create robust batch(group of items) processing system. 
 Bacth Processing : batch processing is a technique which process data in a large group , instead of a single element of data, where you can process a high volume of data with minimul human interaction.
 
@@ -35,6 +35,34 @@ Because of this:
 Note : we will use Task Executor framework for this.
 
 Q3. Spring Batch Core component and thier follow of executions?
+
+Architecture of Spring batch :
+------------------------------
+
+[ REST / Scheduler / App Startup ]
+                |
+                v
+         JobOperator (preferred)
+           (or JobLauncher)
+                |
+                v
+               Job
+                |
+        -------------------
+        |                 |
+      Step1             Step2   (optional / sequential / parallel)
+        |                 |
+  Chunk-oriented      Chunk-oriented
+        |                 |
+  ItemReader          ItemReader
+   (CSV)               (CSV)
+        |
+  ItemProcessor
+        |
+  ItemWriter
+     (DB)
+
+
 Spring Batch Core component:
 ----------------------------
 (1). JobLuncher:- it is an interface which is used to lunch a job/Starts the Job, Sends Job Parameters, Handles status (Started, Completed, Failed), Allows scheduling of jobs. it has run method which trigger the job. 
@@ -82,16 +110,10 @@ Spring Batch Core component:
                           - Job parameters
                           - Errors (if any)
 
-follow of executions :
-----------------------    
-                          / ItemReader (soruce is - csv file)
-JOB LUNCHER → JOB → STEP1 → ItemProcessor 
-  ↓              \        \ ItemWriter (destination will - db)
-JOB REPOSITORY     \       
-                     \
-                       \
-                         \ / ItemReader (soruce is - csv file)
-                           STEP2 → ItemProcessor 
-                           \ ItemWriter (destination will - db)
+IMPLEMENTATION OF SPRING BATCH :
+STEP-1 :
+- add spring batch dependency.
+
+
 
 
