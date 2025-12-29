@@ -1,0 +1,113 @@
+Q1. What is Spring Batch?
+Spring Batch Spring Framework ka ek core module hai jo large volume data (batch of data) ko process karne ke liye use hota hai.
+
+Batch Processing kya hota hai?
+Batch Processing me:
+         - Data ek-ek record nahi
+         - large group (lakhs / crores) me process hota hai
+         - Minimum human interaction hoti hai
+
+When to use ?
+- Large Data Processing:
+Jab aapko lakhs–crores records process karne ho:
+                          - 10 lakh users ka data update karna
+                          - Big CSV/Excel files read & write karna
+- Scheduled / Daily Jobs
+Jab koi kaam daily/weekly/monthly auto-run karna ho:
+                          - Daily sales report generate karna
+                          - Daily email notifications bhejna
+                          - Monthly salary processing
+- ETL (Extract → Transform → Load)
+ Jab data ko:
+           - read karna ho (CSV, DB, XML, JSON)
+           - transform karna ho (calculation, validation)
+           - write karna ho (DB, file, API)
+
+
+Q2. What is Task Executor Framework?
+Task Executor Framework Spring ka feature hai jo parallel & asynchronous execution ke liye use hota hai.
+Simple Explanation :
+Jaise computer me:
+ Music
+ Download
+ YouTube
+sab ek saath chalte hain (multiple threads),Waise hi Spring me: Multiple tasks background threads me run karte hain
+Definition :
+Task Executor helps to:
+           - Run tasks asynchronously
+           - Use multiple threads
+           - Improve performance
+Why use it?
+✔ Main thread block nahi hota
+✔ Faster processing
+✔ Parallel execution possible
+
+
+Q3.Architecture of Spring batch and Core component ?
+
+Architecture of Spring batch :
+------------------------------
+
+[ REST / Scheduler / App Startup ]
+                |
+                v
+         JobOperator (preferred)
+           (or JobLauncher)
+                |
+                v
+               Job
+                |
+        -------------------
+        |                 |
+      Step1             Step2   (optional / sequential / parallel)
+        |                 |
+  Chunk-oriented      Chunk-oriented
+        |                 |
+  ItemReader          ItemReader
+   (CSV)               (CSV)
+        |
+  ItemProcessor
+        |
+  ItemWriter
+     (DB)
+
+Spring Batch Core component:
+----------------------------
+1. JobLauncher :
+    - Job ko start karta hai
+    - Job parameters pass karta hai
+    - run() method se job trigger hota hai
+2. Job :
+    - Batch process ka main container
+    - Multiple Steps ka collection hota hai
+    - job flow & execution order define karta hai
+3. Step :
+    - Job ka single unit of work
+    - Actual processing yahi hoti hai
+    - Step ke main components:
+                      - ItemReader :
+                                  - Data read karta hai (CSV, DB, File, API)
+                      - ItemProcessor :
+                                  - Data transform / validate karta hai
+                                  - Invalid data skip bhi kar sakta hai
+                      - ItemWriter :
+                                  - Processed data write karta hai (DB, File, API).
+4. JobRepository :
+    - Batch job ka database store
+    - Job & Step execution ka pura record rakhta hai
+    - Stores:
+           - Job status (Running / Completed / Failed)
+           - Start & End time
+           - Step details
+           - Errors
+           - Job parameters
+
+
+Q4. IMPLEMENTATION OF SPRING BATCH :
+STEP-1 :
+- add spring batch dependency.
+
+
+
+
+
